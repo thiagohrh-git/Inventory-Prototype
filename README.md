@@ -1,0 +1,3 @@
+# Inventory-Prototype
+
+Basic prototype
