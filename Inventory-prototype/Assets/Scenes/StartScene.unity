@@ -1474,6 +1474,7 @@ GameObject:
   - component: {fileID: 1654391925}
   - component: {fileID: 1654391924}
   - component: {fileID: 1654391923}
+  - component: {fileID: 1654391926}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -1566,6 +1567,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654391921}
   m_CullTransparentMesh: 1
+--- !u!114 &1654391926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654391921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17e3a4cecd8c2841905a083ab6b63ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemPrefab: {fileID: 1612030986322888973, guid: 7845d5b42deaaa74dbe32f691818b568, type: 3}
+  _myContentPanel: {fileID: 301519122}
 --- !u!1 &1673708621
 GameObject:
   m_ObjectHideFlags: 0
