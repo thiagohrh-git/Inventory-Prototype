@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInventoryItem : MonoBehaviour
+public class UIInventoryItemIcon : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text _itemAmountTextComponent;

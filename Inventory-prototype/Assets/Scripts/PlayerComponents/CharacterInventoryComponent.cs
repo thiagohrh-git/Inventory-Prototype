@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public class CharacterInventoryComponent : MonoBehaviour
 {
+    [SerializeField] private SOItemInventory _itemInventory;
     public event Action<ItemIDs, int> OnItemRecieved; // pass an ID along, maybe with an ENUM value. Check a dictionary to get item info. Easier to save too.
     public event Action OnActivateInventoryMenu;
 
@@ -16,7 +17,9 @@ public class CharacterInventoryComponent : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.O))
         {
-            OnItemRecieved?.Invoke(GetRandomItemId(), 1); // Second value always quantity.
+            ItemIDs newlyCreatedItem = GetRandomItemId();
+            OnItemRecieved?.Invoke(newlyCreatedItem, 1); // Second value always quantity.
+            _itemInventory.AddItemToInventorySlot(newlyCreatedItem, 1);
         }
     }
 

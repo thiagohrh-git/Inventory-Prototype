@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f790ee24d8c02da4c82f7a3041c5afd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemInventory: {fileID: 11400000, guid: 3e30844db0e850342b273b062789cae6, type: 2}
 --- !u!1001 &6713709734564386560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -622,10 +623,6 @@ PrefabInstance:
     - target: {fileID: 3217329834362107065, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
       propertyPath: m_Name
       value: InventoryPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217329834362107065, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3231845694393311941, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
       propertyPath: m_Pivot.x
@@ -811,6 +808,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7470603990163444101, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
+      propertyPath: _itemIconPrefab
+      value: 
+      objectReference: {fileID: 1612030986322888973, guid: 7845d5b42deaaa74dbe32f691818b568, type: 3}
     - target: {fileID: 8998499194942653143, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

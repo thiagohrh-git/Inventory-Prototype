@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "ItemInventory", menuName = "ScriptableObjects/NewItemInventory", order = 1)]
+public class SOItemInventory : ScriptableObject
+{
+    [SerializeField]
+    private List<ItemSlotData> _itemSlotDataList = new List<ItemSlotData>();
+    public List<ItemSlotData> ItemSlotDataList => _itemSlotDataList; // For simple info fetching.
+    [Serializable]
+    public struct ItemSlotData
+    {
+        public ItemIDs ItemId;
+        public int ItemAmount;
+    }
+
+    public void AddItemToInventorySlot(ItemIDs newItemId, int newItemAmount)
+    {
+        if (newItemAmount <= 0 || newItemId == ItemIDs.DEFAULT)
+            return;
+        
+        ItemSlotData newItemSlot = new ItemSlotData();
+        newItemSlot.ItemId = newItemId;
+        newItemSlot.ItemAmount = newItemAmount;
+        
+        _itemSlotDataList.Add(newItemSlot);
+    }
+
+    public void RemoveItemFromInventorySlot(ItemIDs newItemId, int newItemAmount) // If I use an item...
+    {
+        
+    }
+
+    public void UpdateItemList(List<ItemSlotData> updatedItemSlotDataList) // If I change the order of the items on the list...
+    {
+        
+    }
+}
