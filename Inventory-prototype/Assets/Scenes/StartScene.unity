@@ -809,6 +809,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7470603990163444101, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
+      propertyPath: _itemDatabase
+      value: 
+      objectReference: {fileID: 11400000, guid: a737cc8fbe8974e4abf3f68b2463c998, type: 2}
+    - target: {fileID: 7470603990163444101, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
+      propertyPath: _itemInventory
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e30844db0e850342b273b062789cae6, type: 2}
+    - target: {fileID: 7470603990163444101, guid: e885339a43a25b045a15a8efdebc4483, type: 3}
       propertyPath: _itemIconPrefab
       value: 
       objectReference: {fileID: 1612030986322888973, guid: 7845d5b42deaaa74dbe32f691818b568, type: 3}

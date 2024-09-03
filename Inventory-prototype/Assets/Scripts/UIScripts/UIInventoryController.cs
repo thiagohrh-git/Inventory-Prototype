@@ -21,20 +21,20 @@ public class UIInventoryController : MonoBehaviour
         _inventoryPageUI.gameObject.SetActive(!_inventoryPageUI.isActiveAndEnabled);
     }
 
-    private void OnItemRecieved(ItemIDs newItemId, int itemQuantity)
+    private void OnItemListUpdated()
     {
-        Debug.Log($"<color=cyan> New item received! {newItemId} </color>");
+        _inventoryPageUI.UpdateDisplayedInventory();
     }
 
     private void AssignEventListeners()
     {
         _characterInventoryComponent.OnActivateInventoryMenu += OnActivateInventoryMenu;
-        _characterInventoryComponent.OnItemRecieved += OnItemRecieved;
+        _characterInventoryComponent.OnItemListUpdated += OnItemListUpdated;
     }
 
     private void UnassignEventListeners()
     {
         _characterInventoryComponent.OnActivateInventoryMenu -= OnActivateInventoryMenu;
-        _characterInventoryComponent.OnItemRecieved -= OnItemRecieved;
+        _characterInventoryComponent.OnItemListUpdated -= OnItemListUpdated;
     }
 }
