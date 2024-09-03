@@ -16,25 +16,50 @@ public class UIinventoryPage : MonoBehaviour
         // Adds all the currently held or saved items onto the UI and List.
     }
 
-    public void UpdateDisplayedInventory() // There's already a list on the scriptable...display that one!...and in that case I need...the list...hmmm...
+    public void UpdateDisplayedInventory()
     {
-        CreateNewItemDataList(_itemInventory.ItemSlotDataList);
+        if (_itemInventory.ItemSlotDataList.Count > _listOfUiItems.Count) // need to add more entries.
+        {
+            AddMoreUIListEntries(_itemInventory.ItemSlotDataList.Count - _listOfUiItems.Count);
+        }
+        else if (_itemInventory.ItemSlotDataList.Count < _listOfUiItems.Count) // Need less entries
+        {
+            TrimUiListEntries(_listOfUiItems.Count - _itemInventory.ItemSlotDataList.Count);
+        }
+
+        UpdateUiEntryValues();
     }
 
-    private void CreateNewItemDataList(List<SOItemInventory.ItemSlotData> newItemSlotDataList)
+    private void UpdateUiEntryValues()
     {
-        // Should delete the old list eventually. But lets do a new one...
-        if (_listOfUiItems.Count == 0) // Just add all the items here...
+        for (int i = 0; i < _listOfUiItems.Count; i++)
         {
-            for (int i = 0; i < newItemSlotDataList.Count; i++)
-            {
-                Sprite newItemSprite = _itemDatabase.GetItemSpriteById(newItemSlotDataList[i].ItemId);
-                
-                // Ok! so ...instantiate it for now. Maybe use a pool later on.
-                UIInventoryItemIcon newInventoryItemIcon = Instantiate(_itemIconPrefab, Vector3.zero, Quaternion.identity, _myContentPanel.transform);
-                newInventoryItemIcon.InitializeUiInventoryItem(newItemSlotDataList[i].ItemAmount, newItemSprite);
-                _listOfUiItems.Add(newInventoryItemIcon);
-            }
+            Sprite newItemSprite = _itemDatabase.GetItemSpriteById(_itemInventory.ItemSlotDataList[i].ItemId);
+            _listOfUiItems[i].InitializeUiInventoryItem(_itemInventory.ItemSlotDataList[i].ItemAmount, newItemSprite);
+        }
+    }
+
+    private void AddMoreUIListEntries(int targetAmount)
+    {
+        for (int i = 0; i < targetAmount; i++)
+        {
+            UIInventoryItemIcon newInventoryItemIcon = Instantiate(_itemIconPrefab, Vector3.zero, Quaternion.identity, _myContentPanel.transform);
+            _listOfUiItems.Add(newInventoryItemIcon);
+        }
+    }
+
+    private void TrimUiListEntries(int targetAmount)
+    {
+        List<GameObject> _destroyCandidates = new List<GameObject>();
+        int trimmingLimit = _listOfUiItems.Count - targetAmount;
+        for (int i = _listOfUiItems.Count; i > trimmingLimit; i--)
+        {
+            _destroyCandidates.Add(_listOfUiItems[i - 1].gameObject);
+            _listOfUiItems.RemoveAt(i - 1);
+        }
+        for (int i = 0; i < _destroyCandidates.Count; i++)
+        {
+            Destroy(_destroyCandidates[i]);
         }
     }
 }
