@@ -17,4 +17,16 @@ public class SOItemDatabase : ScriptableObject
         }
         return null;
     }
+
+    public string GetItemDescriptionById(ItemIDs newItemId)
+    {
+        for (int i = 0; i < _allItensList.Count; i++)
+        {
+            if (_allItensList[i].ItemID == newItemId)
+            {
+                return _allItensList[i].ItemDescription;
+            }
+        }
+        return null;
+    }
 }

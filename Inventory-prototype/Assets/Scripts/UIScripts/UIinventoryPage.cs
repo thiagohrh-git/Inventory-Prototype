@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class UIinventoryPage : MonoBehaviour
 {
-    [SerializeField] private UIInventoryItemIcon _itemIconPrefab; // The base of the item. Will only add those when needed on the page. Populate by getting the info from scriptable.
+    [SerializeField] private UIInventoryItemIcon _itemIconPrefab; // Prefab of Icon buttons.
     [SerializeField] private RectTransform _myContentPanel; // Reference to the father of the displayed items.
+    [SerializeField] private UiItemDescriptionPanel _itemDescriptionPanel;
+    
+    [Header("Inventory Scriptable Objects")]
     [SerializeField] private SOItemInventory _itemInventory; // Not sure I should keep this here...maybe use a remote event to fetch ONLY the list. Reference does not seem apropriate.
     [SerializeField] private SOItemDatabase _itemDatabase;
     
@@ -35,7 +38,7 @@ public class UIinventoryPage : MonoBehaviour
         for (int i = 0; i < _listOfUiItems.Count; i++)
         {
             Sprite newItemSprite = _itemDatabase.GetItemSpriteById(_itemInventory.ItemSlotDataList[i].ItemId);
-            _listOfUiItems[i].InitializeUiInventoryItem(_itemInventory.ItemSlotDataList[i].ItemAmount, newItemSprite);
+            _listOfUiItems[i].InitializeUiInventoryItem(_itemInventory.ItemSlotDataList[i].ItemAmount, newItemSprite, _itemInventory.ItemSlotDataList[i].ItemId);
         }
     }
 
@@ -44,6 +47,7 @@ public class UIinventoryPage : MonoBehaviour
         for (int i = 0; i < targetAmount; i++)
         {
             UIInventoryItemIcon newInventoryItemIcon = Instantiate(_itemIconPrefab, Vector3.zero, Quaternion.identity, _myContentPanel.transform);
+            AssignIconHoverEvent(newInventoryItemIcon);
             _listOfUiItems.Add(newInventoryItemIcon);
         }
     }
@@ -54,6 +58,7 @@ public class UIinventoryPage : MonoBehaviour
         int trimmingLimit = _listOfUiItems.Count - targetAmount;
         for (int i = _listOfUiItems.Count; i > trimmingLimit; i--)
         {
+            UnassignIconHoverEvent(_listOfUiItems[i - 1]);
             _destroyCandidates.Add(_listOfUiItems[i - 1].gameObject);
             _listOfUiItems.RemoveAt(i - 1);
         }
@@ -61,5 +66,23 @@ public class UIinventoryPage : MonoBehaviour
         {
             Destroy(_destroyCandidates[i]);
         }
+    }
+
+    private void AssignIconHoverEvent(UIInventoryItemIcon inventoryItemIcon)
+    {
+        inventoryItemIcon.OnItemHover += OnUiItemHovered;
+    }
+
+    private void UnassignIconHoverEvent(UIInventoryItemIcon inventoryItemIcon)
+    {
+        inventoryItemIcon.OnItemHover -= OnUiItemHovered;
+    }
+
+    private void OnUiItemHovered(ItemIDs hoveredItemId)
+    {
+        Sprite newItemSprite = _itemDatabase.GetItemSpriteById(hoveredItemId);
+        string itemName = hoveredItemId.ToString(); // Work this out so the underlines get replaced by spaces and you're golden.
+        string itemDescription = _itemDatabase.GetItemDescriptionById(hoveredItemId);
+        _itemDescriptionPanel.DisplayItem(newItemSprite, itemName, itemDescription);
     }
 }
