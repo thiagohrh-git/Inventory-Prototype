@@ -49,9 +49,24 @@ public class SOItemInventory : ScriptableObject
         return false;
     }
 
-    public void RemoveItemFromInventorySlot(ItemIDs newItemId, int newItemAmount) // If I use an item...
+    public void UseItemFromInventory(ItemIDs usedItemId)
     {
-        
+        for (int i = 0; i < _itemSlotDataList.Count; i++)
+        {
+            if (_itemSlotDataList[i].ItemId == usedItemId)
+            {
+                if (_itemSlotDataList[i].ItemAmount > 1)
+                {
+                    _itemSlotDataList[i].ItemAmount--;
+                }
+                else
+                {
+                    _itemSlotDataList.RemoveAt(i);
+                }
+
+                return;
+            }
+        }
     }
 
     public void UpdateItemList(List<ItemSlotData> updatedItemSlotDataList) // If I change the order of the items on the list...

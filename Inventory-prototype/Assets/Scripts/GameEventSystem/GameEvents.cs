@@ -1,16 +1,9 @@
-using UnityEngine;
+using System;
 
-public class GameEvents : MonoBehaviour
+public static class GameEvents
 {
-    // Start is called before the first frame update
-    void Start()
+    public static class PlayerEvents
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public static Action<ItemIDs> OnItemUsed;
     }
 }

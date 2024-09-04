@@ -30,13 +30,12 @@ public class UIInventoryItemIcon : MonoBehaviour, IPointerEnterHandler
 
     private void OnButtonClicked()
     {
-        Debug.Log("<color=green> ButtonClicked!!!! </color>");
+        GameEvents.PlayerEvents.OnItemUsed?.Invoke(_itemId);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         OnItemHover?.Invoke(_itemId);
-        Debug.Log("<color=cyan> Pointer entered!!! </color>");
     }
 
     public void InitializeUiInventoryItem(int itemAmount, Sprite newImageSprite, ItemIDs newItemId)
