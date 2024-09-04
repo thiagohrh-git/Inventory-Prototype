@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIInventoryItemIcon : MonoBehaviour, IPointerEnterHandler
+public class UIInventoryItemIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private TMP_Text _itemAmountTextComponent;
@@ -17,6 +17,7 @@ public class UIInventoryItemIcon : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private Button _myButtonComponent;
 
     public event Action<ItemIDs> OnItemHover;
+    public event Action<ItemIDs> OnItemHoverExit;
 
     private void Start()
     {
@@ -36,6 +37,11 @@ public class UIInventoryItemIcon : MonoBehaviour, IPointerEnterHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         OnItemHover?.Invoke(_itemId);
+    }
+    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnItemHoverExit?.Invoke(_itemId);
     }
 
     public void InitializeUiInventoryItem(int itemAmount, Sprite newImageSprite, ItemIDs newItemId)

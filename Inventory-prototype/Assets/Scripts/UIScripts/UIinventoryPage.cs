@@ -71,18 +71,28 @@ public class UIinventoryPage : MonoBehaviour
     private void AssignIconHoverEvent(UIInventoryItemIcon inventoryItemIcon)
     {
         inventoryItemIcon.OnItemHover += OnUiItemHovered;
+        inventoryItemIcon.OnItemHoverExit += OnUiItemHoverEnd;
     }
 
     private void UnassignIconHoverEvent(UIInventoryItemIcon inventoryItemIcon)
     {
         inventoryItemIcon.OnItemHover -= OnUiItemHovered;
+        inventoryItemIcon.OnItemHoverExit -= OnUiItemHoverEnd;
     }
 
-    private void OnUiItemHovered(ItemIDs hoveredItemId)
+    private void OnUiItemHovered(ItemIDs hoveredItemId) // What if....I stop hovering then I check what is the currently displayed ID...if it matches...then go back to zero.
     {
         Sprite newItemSprite = _itemDatabase.GetItemSpriteById(hoveredItemId);
         string itemName = hoveredItemId.ToString(); // Work this out so the underlines get replaced by spaces and you're golden.
         string itemDescription = _itemDatabase.GetItemDescriptionById(hoveredItemId);
-        _itemDescriptionPanel.DisplayItem(newItemSprite, itemName, itemDescription);
+        _itemDescriptionPanel.DisplayItem(newItemSprite, itemName, itemDescription, hoveredItemId);
+    }
+
+    private void OnUiItemHoverEnd(ItemIDs hoveredItemId)
+    {
+        if (hoveredItemId == _itemDescriptionPanel.GetLastDisplayedItem())
+        {
+            _itemDescriptionPanel.DisplayNone();
+        }
     }
 }
